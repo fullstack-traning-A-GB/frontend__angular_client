@@ -1,0 +1,59 @@
+$margins: ("5": 5px, "10": "10px", "15": 15px, "20": 20px)
+.is-crypto::before, .no-crypto::before
+  position: absolute
+  content: ""
+  width: 0.8rem
+  height: 0.8rem
+  border-radius: 50% 50%
+  left: -5%
+  top: 25%
+
+.is-crypto::before
+  background-color: lawngreen
+
+.no-crypto::before
+  background-color: red
+
+.is-crypto, .no-crypto
+  left: 7.5%
+
+#box
+  height: 60px
+  border: 1px #363b3f
+  box-shadow: 6px 0 white, 6px 0 white, 0 2px 5px -2px #3d3d3d
+
+
+
+@each $name, $value in $margins
+  .m-t-#{$name}
+    margin-top: $value
+
+  .m-b-#{$name}
+    margin-top: $value
+
+.card-body-item
+  padding: 0.6rem 0.2rem
+  align-items: center
+
+.card
+  padding-top: 1%
+  padding-left: 21px
+  padding-right: 0px
+
+.box
+  display: flex
+  align-items: center
+
+.font-custom
+  color: dodgerblue
+  font-weight: bold
+  font-family: 'Titillium Web', sans-serif
+  font-size: 1.2rem
+
+.font-style-custom
+  font-family: 'Titillium Web', sans-serif
+  color: #464646
+  font-weight: 600
+  font-size: 1rem
+
+
