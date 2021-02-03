@@ -1,8 +1,6 @@
-import {Component, HostListener, OnInit} from '@angular/core';
-import {AssetDetailsResponse} from '../../model/dto/asset-details-response';
+import {Component, OnInit} from '@angular/core';
 import {RestBNCService} from '../../services/rest-bnc.service';
 import {CoinRowDetailView} from '../../model/dto/coin-row-detail-view';
-import {TokenBNCService} from '../../services/token-b-n-c.service';
 import {Router} from '@angular/router';
 import {ConverterServiceService} from '../../services/converter-service.service';
 import {flatMap, map} from 'rxjs/operators';
@@ -19,7 +17,6 @@ export class ListadoMonedasComponent implements OnInit {
   initialPage = 20;
 
   constructor(private restBnc: RestBNCService,
-              private bncToken: TokenBNCService,
               private router: Router,
               private converter: ConverterServiceService) {
   }

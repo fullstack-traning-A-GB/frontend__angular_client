@@ -6,7 +6,6 @@ import {TokenResponseDTO} from '../model/dto/token-response-dto';
 import {Resource} from '../model/constants/resource.enum';
 import {AssetDetailsResponse} from '../model/dto/asset-details-response';
 import {ContentWrapper} from '../model/dto/content-wrapper';
-import {BncHeaders} from '../model/constants/bnc-headers.enum';
 import {AssetTickerResponse} from '../model/dto/asset-ticker-response';
 import {flatMap, map, switchMap} from 'rxjs/operators';
 
@@ -18,22 +17,16 @@ export class RestBNCService {
   private readonly httpHeaders: HttpHeaders;
 
   constructor(private httpClient: HttpClient) {
-    this.httpHeaders = new HttpHeaders()
-      .set(BncHeaders.X_Rapid_API_Key, BncHeaders.RAPID_API_KEY_HEADER_VALUE)
-      .set(BncHeaders.X_Rapid_API_Host, BncHeaders.RAPID_API_HOST_HEADER_VALUE)
-      .set('Accept', 'application/json')
-      .set('Authorization', `Bearer ${localStorage.getItem('token')}`)
-      .set('useQueryString', 'true');
+    this.postToToken().subscribe(jwt => localStorage.setItem('token', jwt.access_token));
+    console.log(`${localStorage.getItem('token')}`);
   }
 
-  public postToToken(tokenRequest: TokenRequestDTO): Observable<TokenResponseDTO> {
-    return this.httpClient.post<TokenResponseDTO>(Resource.BASE_URL.concat(`/${Resource.GET_TOKEN_RESOURCE}`), tokenRequest,
-      {headers: this.httpHeaders.set('Content-Type', 'application/json')});
+  public postToToken(): Observable<TokenResponseDTO> {
+    return this.httpClient.post<TokenResponseDTO>(`${Resource.BASE_URL}/${Resource.GET_TOKEN_RESOURCE}`, new TokenRequestDTO());
   }
 
   public getToAssetTicker(assetId: string): Observable<ContentWrapper<AssetTickerResponse>> {
-    return this.httpClient.get<ContentWrapper<AssetTickerResponse>>(`${Resource.BASE_URL}/${Resource.ASSET_TICKER_RESOURCE}?assetId=${assetId}`,
-      {headers: this.httpHeaders});
+    return this.httpClient.get<ContentWrapper<AssetTickerResponse>>(`${Resource.BASE_URL}/${Resource.ASSET_TICKER_RESOURCE}?assetId=${assetId}`);
   }
 
   public getToAsset(symbol: string): Observable<ContentWrapper<AssetDetailsResponse>> {
@@ -42,7 +35,7 @@ export class RestBNCService {
       urlParams = urlParams.append('symbol', symbol);
     }
     return this.httpClient.get<ContentWrapper<AssetDetailsResponse>>(`${Resource.BASE_URL}/${Resource.GET_ASSET}`,
-      {headers: this.httpHeaders, params: urlParams});
+      {params: urlParams});
   }
 
   public makeChange(symbol: string): Observable<number> {

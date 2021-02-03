@@ -11,42 +11,53 @@
 
     <div class="mb-3 input-icon">
       <i>$</i>
-      <input class="round-bordered" type="text" [(ngModel)]="coinToConvert === undefined? 0 : coinToConvert.coinPrice">
+      <input [(ngModel)]="coinToConvert === undefined? 0 : coinToConvert.coinPrice" class="round-bordered" type="text">
+
     </div>
 
     <div class="parent">
 
       <div class="wrapper">
 
-        <div ngbDropdown #myDrop1="ngbDropdown" class="d-inline-block first">
-          <button class="btn btn-light btn-dropdown" id="deMoneda" ngbDropdownAnchor (focus)="myDrop1.open()"
-          >{{fromCoinSelected}}</button>
-          <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="deMoneda">
+        <div #myDrop1="ngbDropdown" class="d-inline-block first" ngbDropdown>
+          <button (focus)="myDrop1.open()" class="btn btn-light btn-dropdown" id="deMoneda" ngbDropdownAnchor
+          >{{fromCoinSelected}}<i
+            [ngClass]="{'select-down-arrow': fromCoinSelected, 'not-select-down-arrow' : !fromCoinSelected}"><img
+            alt="converter"
+            height="30" src="./assets/down-arrow.png" width="34"></i></button>
+          <div aria-labelledby="deMoneda" class="dropdown-menu" ngbDropdownMenu>
             <div *ngFor="let fCoin of fromCoin">
-              <button class="dropdown-item" ngbDropdownItem (click)="fromCurrency(fCoin)">{{fCoin}}</button>
+              <button (click)="fromCurrency(fCoin)" class="dropdown-item" ngbDropdownItem>{{fCoin}}</button>
             </div>
           </div>
         </div>
 
-        <div ngbDropdown #myDrop2="ngbDropdown" class="d-inline-block second">
-          <button class="btn btn-light btn-dropdown" id="aMoneda" ngbDropdownAnchor (focus)="myDrop2.open()"
-          >{{toCoinSelected}}</button>
-          <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="aMoneda">
+        <div #myDrop2="ngbDropdown" class="d-inline-block second" ngbDropdown>
+          <button (focus)="myDrop2.open()" class="btn btn-light btn-dropdown" id="aMoneda" ngbDropdownAnchor
+          >{{toCoinSelected}} <i
+            [ngClass]="{'select-down-arrow': toCoinSelected, 'not-select-down-arrow' : !toCoinSelected}"><img
+            alt="converter"
+            height="30" src="./assets/down-arrow.png"
+            width="34"></i></button>
+          <div aria-labelledby="aMoneda" class="dropdown-menu" ngbDropdownMenu>
             <div *ngFor="let tCoin of toCoin">
-              <button class="dropdown-item" ngbDropdownItem (click)="toCurrency(tCoin)">{{tCoin}}</button>
+              <button (click)="toCurrency(tCoin)" class="dropdown-item" ngbDropdownItem>{{tCoin}}
+
+              </button>
             </div>
           </div>
         </div>
 
         <div class="col-1 third">
-          <a class="btn rounder" (click)="realizarCambio()"><img src="./assets/converter_button.PNG"
-                                                                 alt="converter" width="34" height="30"></a>
+          <a (click)="realizarCambio()" class="btn rounder"><img alt="converter"
+                                                                 height="30" src="./assets/converter_button.PNG"
+                                                                 width="34"></a>
         </div>
       </div>
 
       <div class="input-icon" disabled="true">
         <i>$</i>
-        <input type="text" class="round-bordered" disabled [value]="resultValue? resultValue: 0.00"/>
+        <input [value]="resultValue? resultValue: 0.00" class="round-bordered" disabled type="text"/>
       </div>
 
     </div>
