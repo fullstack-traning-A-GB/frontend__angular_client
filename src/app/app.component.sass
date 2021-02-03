@@ -1,8 +1,12 @@
+
+
 $primary: #0076fe
+$white: #ffff
+$body-color: #e4f3fc
 
 .card-header
   background: white
-  padding: 1rem 0rem 0rem 0rem
+  padding: 3.5rem 0rem 0rem 0rem
 
 .nav
   flex-wrap: inherit
@@ -26,7 +30,24 @@ $primary: #0076fe
   color: $primary
   text-align: center
 
-#container
-  display: flex
-  justify-content: center
-  align-items: center
+.container
+  background: $white url("../assets/footer.png") no-repeat fixed bottom
+  min-height: 100vh
+
+@media (min-width: 1366px)
+  .container
+    background-size: 77%
+    max-width: 1450px
+    padding: 5.3rem 3rem
+  .card-mirror
+    width: 90%
+    margin: auto
+    min-height: 80vh
+    border-color: #ced6e0
+
+.title-font
+  font-family: 'Almarai', sans-serif
+  font-size: 1.3rem
+  font-weight: normal
+  color: #3b3b3b
+  text-align: center

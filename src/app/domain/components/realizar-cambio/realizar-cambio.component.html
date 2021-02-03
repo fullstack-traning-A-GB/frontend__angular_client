@@ -1,11 +1,17 @@
 <div class="col-xs-12 col-sm-6 offset-sm-3">
 
 
+  <div>
+    <div class="col 6 title-fonts"> Realizar cambio</div>
+    <div class="col 6 content-fonts"> Seleccione las monedas</div>
+  </div>
+
+
   <div class="card card-body-item align-items-center">
 
     <div class="mb-3 input-icon">
       <i>$</i>
-      <input class="round-bordered" type="text" [value]="coinToConvert.coinPrice || 0 | currency: 'USD'">
+      <input class="round-bordered" type="text" [(ngModel)]="coinToConvert === undefined? 0 : coinToConvert.coinPrice">
     </div>
 
     <div class="parent">
@@ -13,7 +19,7 @@
       <div class="wrapper">
 
         <div ngbDropdown #myDrop1="ngbDropdown" class="d-inline-block first">
-          <button class="btn btn-light" id="deMoneda" ngbDropdownAnchor (focus)="myDrop1.open()"
+          <button class="btn btn-light btn-dropdown" id="deMoneda" ngbDropdownAnchor (focus)="myDrop1.open()"
           >{{fromCoinSelected}}</button>
           <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="deMoneda">
             <div *ngFor="let fCoin of fromCoin">
@@ -22,9 +28,8 @@
           </div>
         </div>
 
-
         <div ngbDropdown #myDrop2="ngbDropdown" class="d-inline-block second">
-          <button class="btn btn-light" id="aMoneda" ngbDropdownAnchor (focus)="myDrop2.open()"
+          <button class="btn btn-light btn-dropdown" id="aMoneda" ngbDropdownAnchor (focus)="myDrop2.open()"
           >{{toCoinSelected}}</button>
           <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="aMoneda">
             <div *ngFor="let tCoin of toCoin">
@@ -35,14 +40,13 @@
 
         <div class="col-1 third">
           <a class="btn rounder" (click)="realizarCambio()"><img src="./assets/converter_button.PNG"
-                                                                 alt="converter" width="34"
-                                                                 height="30"></a>
+                                                                 alt="converter" width="34" height="30"></a>
         </div>
       </div>
 
       <div class="input-icon" disabled="true">
         <i>$</i>
-        <input type="text" class="round-bordered" disabled [value]="resultValue | currency: 'USD'"/>
+        <input type="text" class="round-bordered" disabled [value]="resultValue? resultValue: 0.00"/>
       </div>
 
     </div>

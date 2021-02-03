@@ -10,7 +10,7 @@ import {ConverterServiceService} from '../../services/converter-service.service'
 })
 export class RealizarCambioComponent implements OnInit {
 
-  coinToConvert!: CoinRowDetailView;
+  coinToConvert: CoinRowDetailView = { };
   fromCoinSelected: string;
   fromCoin: string[] = symbols;
   toCoin: string[];

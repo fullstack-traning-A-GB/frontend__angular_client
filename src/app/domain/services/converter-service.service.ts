@@ -18,6 +18,7 @@ export class ConverterServiceService {
     return this.restBNCService.makeChange(symbol).pipe(
       map(assetTickerResponse => assetTickerResponse),
       flatMap(valueToConvert => {
+        console.log(`value to convert is ${valueToConvert}`);
         const result = (priceToConvert / valueToConvert) * 100;
         return of(result);
       })
